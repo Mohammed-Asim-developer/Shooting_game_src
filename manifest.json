@@ -1,21 +1,21 @@
 {
-  "name": "FPS Shooting Game",
-  "short_name": "FPS",
-  "start_url": "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/index.html",
-  "display": "standalone",
-  "orientation": "landscape",
-  "background_color": "#000000",
-  "theme_color": "#000000",
-  "icons": [
-    {
-      "src": "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+    "name": "FPS Shooting Game",
+    "short_name": "FPS",
+    "start_url": "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/index.html",
+    "display": "standalone",
+    "orientation": "landscape",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/bullet_icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/bullet_icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
 }
