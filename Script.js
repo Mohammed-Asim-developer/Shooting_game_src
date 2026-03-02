@@ -2,7 +2,6 @@
                1️⃣ IMPORTS
             ========================= */
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js";
-//test
 /* =========================
                2️⃣ DOM SETUP
             ========================= */
@@ -21,7 +20,7 @@ function setupDOM() {
     document.body.style.margin = 0;
 
     btn.innerHTML =
-        '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png" width="24" height="24">';
+        '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/bullet_icon.png" width="24" height="24">';
     toggle.innerText = "Single";
 
     spanHits.innerText = "Hits : 0";
@@ -72,7 +71,7 @@ console.log(view.height);
 console.log(checkOrientation);
 // أرضية
 const groundTexture = textureLoader.load(
-        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/map.gif"
+        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/map.gif"
     ),
     groundMaterial = new THREE.MeshBasicMaterial({
         map: groundTexture,
@@ -98,7 +97,7 @@ const target = new THREE.Mesh(
     new THREE.CircleGeometry(50, 64),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/colorful-archery-target-r8cy205o48r3zoue.png.webp"
+            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/colorful-archery-target-r8cy205o48r3zoue.png.webp"
         ),
         side: THREE.DoubleSide
     })
@@ -124,7 +123,7 @@ const holeTemplate = new THREE.Mesh(
     new THREE.CircleGeometry(10, 64),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/BulletHole.png"
+            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/BulletHole.png"
         )
     })
 );
@@ -134,7 +133,7 @@ const weaponHolder = new THREE.Mesh(
     new THREE.PlaneGeometry(4, 2.5),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/hand-with-gun-png.png"
+            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/hand-with-gun-png.png"
         ),
         transparent: true
     })
@@ -148,7 +147,7 @@ camera.add(listener);
 
 let isLoaded = false;
 audioLoader.load(
-    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/ShootingSound.mp3",
+    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/ShootingSound.mp3",
     buffer => {
         shootSound.setBuffer(buffer);
         shootSound.setVolume(1);
@@ -157,7 +156,7 @@ audioLoader.load(
     }
 );
 audioLoader.load(
-    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/reload_sound.mp3",
+    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/reload_sound.mp3",
     buffer => {
         reloadSound.setBuffer(buffer);
         reloadSound.setVolume(1);
@@ -272,7 +271,7 @@ function reload() {
         magazine = 30;
         btn.disabled = false;
         btn.innerHTML =
-            '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png" width="24" height="24">';
+            '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/bullet_icon.png" width="24" height="24">';
     }, 4000);
     weaponHolder.rotation.z = Math.PI / 8;
     setTimeout(() => (weaponHolder.rotation.z = 0), 3500);
@@ -390,7 +389,7 @@ btn.addEventListener("touchstart", e => {
         if (magazine <= 0) {
             btn.disabled = true;
             btn.innerHTML =
-                '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/magazine_reload.png" width="24" height="24"/>';
+                '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/magazine_reload.png" width="24" height="24"/>';
             reload();
         }
         shoot();
@@ -399,7 +398,7 @@ btn.addEventListener("touchstart", e => {
             magazine--;
             if (magazine <= 0) {
                 btn.innerHTML =
-                    '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/magazine_reload.png" width="24" height="24"/>';
+                    '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/magazine_reload.png" width="24" height="24"/>';
                 btn.disabled = true;
                 clearInterval(interval);
                 interval = null;
