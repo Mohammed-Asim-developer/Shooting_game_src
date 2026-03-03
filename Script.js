@@ -36,7 +36,7 @@ function setupDOM() {
 
     toggle.innerText = "Single";
 
-    spanHits.innerText = "Hits test : 0";
+    spanHits.innerText = "Hits : 0";
     spanFails.innerText = "Fails : 0";
 
     btn.style.cssText =
