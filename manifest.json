@@ -2,8 +2,8 @@
     "name": "FPS Shooting Game",
     "short_name": "FPS",
     "start_url": "https://vercel.com/uswapy-1393s-projects/shooting",
-    "display": "fullscreen",
-    "orientation": "landscape",
+    "display": "standalone",
+    "orientation": "portrait",
     "background_color": "#000000",
     "theme_color": "#000000",
     "icons": [

@@ -9,8 +9,11 @@ const view = document.createElement("canvas"),
     btn = document.createElement("button"),
     toggle = document.createElement("button"),
     spanHits = document.createElement("span"),
-    spanFails = document.createElement("span");
-
+    spanFails = document.createElement("span"),
+    bulletView = document.createElement("div"),
+    bullet = document.createElement("img"),
+    magazine_reload = document.createElement("img"),
+    bullets = [];
 function setupDOM() {
     view.width = window.innerWidth;
     view.height = window.innerHeight;
@@ -18,9 +21,19 @@ function setupDOM() {
     view.style.touchAction = "none";
 
     document.body.style.margin = 0;
+    bulletView.style.cssText =
+        "width:80%; height:5%;position:fixed;bottom:1%;right:0;background:rgba(0,0,0,0.3);display:flex;justify-content:flex-start;align-items:center;overflow:hidden";
+    magazine_reload.src =
+        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/magazine_reload.png";
+    bullet.src =
+        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png";
+    bulletHolder();
+    magazine_reload.width = "24";
+    magazine_reload.height = "24";
+    bullet.width = "24";
+    bullet.height = "24";
+    btn.appendChild(bullet);
 
-    btn.innerHTML =
-        '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/bullet_icon.png" width="24" height="24">';
     toggle.innerText = "Single";
 
     spanHits.innerText = "Hits : 0";
@@ -38,7 +51,7 @@ function setupDOM() {
     spanFails.style.cssText =
         "position:fixed;top:10px;right:20px;white-space:nowrap";
 
-    document.body.append(view, btn, toggle, spanHits, spanFails);
+    document.body.append(view, btn, toggle, spanHits, spanFails, bulletView);
 }
 setupDOM();
 
@@ -64,14 +77,9 @@ renderer.setSize(view.width, view.height);
 /* =========================
                4️⃣ OBJECT CREATION
             ========================= */
-console.log(window.innerWidth);
-console.log(window.innerHeight);
-console.log(view.width);
-console.log(view.height);
-console.log(checkOrientation);
 // أرضية
 const groundTexture = textureLoader.load(
-        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/map.gif"
+        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/map.gif"
     ),
     groundMaterial = new THREE.MeshBasicMaterial({
         map: groundTexture,
@@ -97,7 +105,7 @@ const target = new THREE.Mesh(
     new THREE.CircleGeometry(50, 64),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/colorful-archery-target-r8cy205o48r3zoue.png.webp"
+            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/colorful-archery-target-r8cy205o48r3zoue.png.webp"
         ),
         side: THREE.DoubleSide
     })
@@ -123,7 +131,7 @@ const holeTemplate = new THREE.Mesh(
     new THREE.CircleGeometry(10, 64),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/BulletHole.png"
+            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/BulletHole.png"
         )
     })
 );
@@ -133,7 +141,7 @@ const weaponHolder = new THREE.Mesh(
     new THREE.PlaneGeometry(4, 2.5),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/hand-with-gun-png.png"
+            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/hand-with-gun-png.png"
         ),
         transparent: true
     })
@@ -145,9 +153,10 @@ const listener = new THREE.AudioListener(),
     reloadSound = new THREE.Audio(listener);
 camera.add(listener);
 
+let reisLoaded = false;
 let isLoaded = false;
 audioLoader.load(
-    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/ShootingSound.mp3",
+    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/ShootingSound.mp3",
     buffer => {
         shootSound.setBuffer(buffer);
         shootSound.setVolume(1);
@@ -156,12 +165,12 @@ audioLoader.load(
     }
 );
 audioLoader.load(
-    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/reload_sound.mp3",
+    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/reload_sound.mp3",
     buffer => {
         reloadSound.setBuffer(buffer);
         reloadSound.setVolume(1);
         reloadSound.setLoop(false);
-        isLoaded = true;
+        reisLoaded = true;
     }
 );
 
@@ -191,7 +200,7 @@ function setupScene() {
 
     aim.position.z = -(ground1.geometry.parameters.height / 2 - 1.5);
 
-    camera.position.set(0, 0, ground1.geometry.parameters.height - 397.49);
+    camera.position.set(0, 0, ground1.geometry.parameters.height / 2 - 1.5);
 
     weaponHolder.position.set(1.5, -2, -3);
 
@@ -212,9 +221,7 @@ let direction = new THREE.Vector2(2, 2).normalize(),
     speed = 2,
     touchStart = null,
     interval = null,
-    aimTouchId = null,
-    magazine = 30;
-
+    aimTouchId = null;
 /* =========================
                7️⃣ GAME LOGIC
             ========================= */
@@ -247,9 +254,9 @@ function shoot() {
         updateCounter(spanHits);
     } else {
         updateCounter(spanFails);
+        createBulletHole();
     }
 
-    createBulletHole();
     recoil();
 
     if (isLoaded) {
@@ -259,19 +266,25 @@ function shoot() {
 }
 
 function reload() {
-    if (isLoaded) {
+    if (reisLoaded) {
         if (reloadSound.isPlaying) reloadSound.stop();
         reloadSound.play();
     }
-    btn.children[0].style.transition = "transform 4s linear";
+
+    magazine_reload.style.transition = "none";
+    magazine_reload.style.transform = "rotate(0deg)";
+
+    // إجبار المتصفح على إعادة الحساب
+    void magazine_reload.offsetWidth;
+
+    magazine_reload.style.transition = "transform 4s linear";
+    magazine_reload.style.transform = "rotate(360deg)";
+
     setTimeout(() => {
-        btn.children[0].style.transform = "rotate(360deg)";
-    }, 10);
-    setTimeout(() => {
-        magazine = 30;
+        bulletHolder();
         btn.disabled = false;
-        btn.innerHTML =
-            '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/bullet_icon.png" width="24" height="24">';
+        btn.removeChild(magazine_reload);
+        btn.appendChild(bullet);
     }, 4000);
     weaponHolder.rotation.z = Math.PI / 8;
     setTimeout(() => (weaponHolder.rotation.z = 0), 3500);
@@ -321,6 +334,17 @@ function moveTarget() {
         direction.y *= -1;
 }
 
+function bulletHolder() {
+    bullets.length = 0;
+    for (let i = 0; i < 30; i++) {
+        bullets.push(bullet.cloneNode());
+    }
+    bullets.forEach(bullet => {
+        bullet.style.cssText =
+            "height:50%;transform:rotateZ(-40deg)rotateY(0deg);padding:0;margin:0";
+        bulletView.appendChild(bullet);
+    });
+}
 function limitAim() {
     if (aim.position.x > roomLimitWidth) aim.position.x = roomLimitWidth;
     if (aim.position.x < -roomLimitWidth) aim.position.x = -roomLimitWidth;
@@ -335,9 +359,6 @@ function limitAim() {
                8️⃣ EVENTS
             ========================= */
 
-window.addEventListener("resize", () => {
-    checkOrientation();
-});
 window.addEventListener("load", () => {
     checkOrientation();
 });
@@ -384,22 +405,24 @@ btn.addEventListener("touchstart", e => {
     e.stopPropagation();
     e.preventDefault();
 
-    if (toggle.innerText === "Single" && magazine > 0) {
-        magazine--;
-        if (magazine <= 0) {
+    if (toggle.innerText === "Single" && bullets.length > 0) {
+        bullets.pop(bullet);
+        bulletView.removeChild(bulletView.lastChild);
+        if (bullets.length <= 0) {
             btn.disabled = true;
-            btn.innerHTML =
-                '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/magazine_reload.png" width="24" height="24"/>';
+            btn.removeChild(bullet);
+            btn.appendChild(magazine_reload);
             reload();
         }
         shoot();
-    } else if (!interval && magazine > 0) {
+    } else if (!interval && bullets.length > 0) {
         interval = setInterval(() => {
-            magazine--;
-            if (magazine <= 0) {
-                btn.innerHTML =
-                    '<img src="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/master/magazine_reload.png" width="24" height="24"/>';
+            bullets.pop(bullet);
+            bulletView.removeChild(bulletView.lastChild);
+            if (bullets.length <= 0) {
                 btn.disabled = true;
+                btn.removeChild(bullet);
+                btn.appendChild(magazine_reload);
                 clearInterval(interval);
                 interval = null;
                 reload();
@@ -419,19 +442,18 @@ toggle.addEventListener("touchstart", e => {
     e.preventDefault();
     toggle.innerText = toggle.innerText === "Single" ? "Auto" : "Single";
 });
+window.addEventListener("resize", () => {
+    checkOrientation();
+});
+checkOrientation();
 /* =========================
                9️⃣ LOOP
             ========================= */
 
 function animate() {
     requestAnimationFrame(animate);
-    checkOrientation();
     moveTarget();
     limitAim();
     renderer.render(scene, camera);
 }
 animate();
-// ====== ضبط حجم الريندر عند تغيير حجم الشاشة ======
-/* window.addEventListener("resize", () => {
-
-                        });*/
