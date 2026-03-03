@@ -4,7 +4,7 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js";
 /* =========================
                2️⃣ DOM SETUP
-            ========================= */
+            =======================test== */
 const view = document.createElement("canvas"),
     btn = document.createElement("button"),
     toggle = document.createElement("button"),
@@ -224,7 +224,7 @@ let direction = new THREE.Vector2(2, 2).normalize(),
     aimTouchId = null;
 /* =========================
                7️⃣ GAME LOGIC
-            ========================= */
+            ========================== */
 
 function updateCounter(element) {
     let current = parseInt(element.innerText.split(":")[1]) || 0;
