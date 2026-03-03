@@ -36,7 +36,7 @@ function setupDOM() {
 
     toggle.innerText = "Single";
 
-    spanHits.innerText = "Hits : 0";
+    spanHits.innerText = "Hits test : 0";
     spanFails.innerText = "Fails : 0";
 
     btn.style.cssText =
@@ -457,10 +457,11 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('SW registered', reg))
-            .catch(err => console.error('SW registration failed', err));
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("./sw.js")
+            .then(reg => console.log("SW registered", reg))
+            .catch(err => console.error("SW registration failed", err));
     });
 }
