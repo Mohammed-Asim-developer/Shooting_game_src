@@ -1,11 +1,11 @@
 /* =========================
                1️⃣ IMPORTS
             ========================= */
-            //import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js";
-            import * as THREE from "./three.module.js";
+//import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js";
+import * as THREE from "./three.module.js";
 /* =========================
                2️⃣ DOM SETUP
-            =======================test== */
+            =======================one== */
 const view = document.createElement("canvas"),
     btn = document.createElement("button"),
     toggle = document.createElement("button"),
