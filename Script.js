@@ -1,7 +1,7 @@
 /* =========================
                1️⃣ IMPORTS
             ========================= */
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js";
+            import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js";
 /* =========================
                2️⃣ DOM SETUP
             =======================test== */
@@ -23,10 +23,10 @@ function setupDOM() {
     document.body.style.margin = 0;
     bulletView.style.cssText =
         "width:80%; height:5%;position:fixed;bottom:1%;right:0;background:rgba(0,0,0,0.3);display:flex;justify-content:flex-start;align-items:center;overflow:hidden";
-    magazine_reload.src =
-        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/magazine_reload.png";
-    bullet.src =
-        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png";
+    magazine_reload.src = "./magazine_reload.png";
+    // "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/magazine_reload.png";
+    bullet.src = "./bullet_icon.png";
+    //"https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png";
     bulletHolder();
     magazine_reload.width = "24";
     magazine_reload.height = "24";
@@ -79,7 +79,8 @@ renderer.setSize(view.width, view.height);
             ========================= */
 // أرضية
 const groundTexture = textureLoader.load(
-        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/map.gif"
+        "./map.gif"
+        //"https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/map.gif"
     ),
     groundMaterial = new THREE.MeshBasicMaterial({
         map: groundTexture,
@@ -105,7 +106,8 @@ const target = new THREE.Mesh(
     new THREE.CircleGeometry(50, 64),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/colorful-archery-target-r8cy205o48r3zoue.png.webp"
+            "./colorful-archery-target-r8cy205o48r3zoue.png.webp"
+            //"https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/colorful-archery-target-r8cy205o48r3zoue.png.webp"
         ),
         side: THREE.DoubleSide
     })
@@ -131,7 +133,8 @@ const holeTemplate = new THREE.Mesh(
     new THREE.CircleGeometry(10, 64),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/BulletHole.png"
+            "./BulletHole.png"
+            // "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/BulletHole.png"
         )
     })
 );
@@ -141,7 +144,8 @@ const weaponHolder = new THREE.Mesh(
     new THREE.PlaneGeometry(4, 2.5),
     new THREE.MeshBasicMaterial({
         map: textureLoader.load(
-            "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/hand-with-gun-png.png"
+            "./hand-with-gun-png.png"
+            //"https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/hand-with-gun-png.png"
         ),
         transparent: true
     })
@@ -156,7 +160,8 @@ camera.add(listener);
 let reisLoaded = false;
 let isLoaded = false;
 audioLoader.load(
-    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/ShootingSound.mp3",
+    "./ShootingSound.mp3",
+    //"https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/ShootingSound.mp3",
     buffer => {
         shootSound.setBuffer(buffer);
         shootSound.setVolume(1);
@@ -165,7 +170,8 @@ audioLoader.load(
     }
 );
 audioLoader.load(
-    "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/reload_sound.mp3",
+    "./reload_sound.mp3",
+    // "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/reload_sound.mp3",
     buffer => {
         reloadSound.setBuffer(buffer);
         reloadSound.setVolume(1);
