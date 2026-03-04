@@ -5,7 +5,7 @@
 import * as THREE from "./three.module.js";
 /* =========================
                2️⃣ DOM SETUP
-            =======================one== */
+            ========================= */
 const view = document.createElement("canvas"),
     btn = document.createElement("button"),
     toggle = document.createElement("button"),
@@ -14,6 +14,7 @@ const view = document.createElement("canvas"),
     bulletView = document.createElement("div"),
     bullet = document.createElement("img"),
     magazine_reload = document.createElement("img"),
+    bestscore = document.createElement("span"),
     bullets = [];
 function setupDOM() {
     view.width = window.innerWidth;
@@ -26,8 +27,8 @@ function setupDOM() {
         "width:80%; height:5%;position:fixed;bottom:1%;right:0;background:rgba(0,0,0,0.3);display:flex;justify-content:flex-start;align-items:center;overflow:hidden";
     magazine_reload.src = "./magazine_reload.png";
     // "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/magazine_reload.png";
-    bullet.src = "./bullet_icon.png";
-    //"https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png";
+    bullet.src ="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png";
+    //"./bullet_icon.png";
     bulletHolder();
     magazine_reload.width = "24";
     magazine_reload.height = "24";
@@ -39,6 +40,7 @@ function setupDOM() {
 
     spanHits.innerText = "Hits : 0";
     spanFails.innerText = "Fails : 0";
+    bestscore.innerText = "Best Score : 0";
 
     btn.style.cssText =
         "width:3rem;height:3rem;border-radius:100%;position:fixed;bottom:10px;left:10px";
@@ -48,11 +50,20 @@ function setupDOM() {
 
     spanHits.style.cssText =
         "position:fixed;top:10px;left:20px;white-space:nowrap";
+    bestscore.style.cssText = `width:fit-content; position:fixed;top:10px;left:50%;transform:translateX(-50%);white-space:nowrap`;
 
     spanFails.style.cssText =
         "position:fixed;top:10px;right:20px;white-space:nowrap";
 
-    document.body.append(view, btn, toggle, spanHits, spanFails, bulletView);
+    document.body.append(
+        view,
+        btn,
+        toggle,
+        spanHits,
+        spanFails,
+        bestscore,
+        bulletView
+    );
 }
 setupDOM();
 
@@ -128,7 +139,7 @@ const aim = new THREE.LineSegments(
     ]),
     new THREE.LineBasicMaterial({ color: 0x000000 })
 );
-
+console.log(aim);
 // فتحة الرصاصة (template)
 const holeTemplate = new THREE.Mesh(
     new THREE.CircleGeometry(10, 64),
@@ -251,6 +262,19 @@ function createBulletHole() {
     }, 2500);
 }
 
+// حفظ أفضل نتيجة
+function saveBestScore(score) {
+    const best = localStorage.getItem("bestScore") || 0;
+    if (score > best) {
+        localStorage.setItem("bestScore", score);
+        console.log("New best score saved!");
+    }
+}
+
+// جلب أفضل نتيجة عند تحميل الصفحة
+const bestScore = localStorage.getItem("bestScore") || 0;
+bestscore.innerText = `Best score: ${bestScore}`;
+
 function shoot() {
     const distance = aim.position.distanceTo(target.position);
 
@@ -259,6 +283,13 @@ function shoot() {
         speed++;
         setTimeout(() => scene.add(target), 2000);
         updateCounter(spanHits);
+        if (
+            parseInt(localStorage.getItem("bestScore")) <
+            parseInt(spanHits.innerText.split(":")[1])
+        ) {
+            saveBestScore(spanHits.innerText.split(":")[1]);
+            updateCounter(bestscore);
+        }
     } else {
         updateCounter(spanFails);
         createBulletHole();

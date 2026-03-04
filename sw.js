@@ -9,7 +9,8 @@ const ASSETS_TO_CACHE = [
     "./manifest.json", // سكريبتات اللعبة
     "./ShootingSound.mp3",
     "./reload_sound.mp3",
-    "./bullet_icon.png",
+    "https://raw.githubusercontent.com///main/bullet_icon.png",
+   // "./bullet_icon.png",
     "./BulletHole.png",
     "./colorful-archery-target.png",
     "./hand-with-gun-png.png",
