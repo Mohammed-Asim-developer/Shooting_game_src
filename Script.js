@@ -5,7 +5,7 @@
 import * as THREE from "./three.module.js";
 /* =========================
                2️⃣ DOM SETUP
-            ========================= */
+            ==================test======= */
 const view = document.createElement("canvas"),
     btn = document.createElement("button"),
     toggle = document.createElement("button"),
@@ -288,7 +288,7 @@ function shoot() {
             parseInt(localStorage.getItem("bestScore")) <
             parseInt(spanHits.innerText.split(":")[1])
         ) {
-            saveBestScore(spanHits.innerText.split(":")[1]);
+            saveBestScore(parseInt(spanHits.innerText.split(":")[1]));
             updateCounter(bestscore);
         }
     } else {

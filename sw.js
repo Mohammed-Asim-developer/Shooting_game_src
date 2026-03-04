@@ -1,5 +1,5 @@
 // اسم الكاش مع رقم الإصدار
-const CACHE_NAME = "shooting-game-v2";
+const CACHE_NAME = "shooting-game-v3";
 
 // الملفات التي تريد كاشها عند أول تحميل
 const ASSETS_TO_CACHE = [
@@ -10,7 +10,7 @@ const ASSETS_TO_CACHE = [
     "./ShootingSound.mp3",
     "./reload_sound.mp3",
     "https://raw.githubusercontent.com///main/bullet_icon.png",
-   // "./bullet_icon.png",
+    // "./bullet_icon.png",
     "./BulletHole.png",
     "./colorful-archery-target.png",
     "./hand-with-gun-png.png",
