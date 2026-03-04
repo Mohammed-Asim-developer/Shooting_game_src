@@ -27,7 +27,8 @@ function setupDOM() {
         "width:80%; height:5%;position:fixed;bottom:1%;right:0;background:rgba(0,0,0,0.3);display:flex;justify-content:flex-start;align-items:center;overflow:hidden";
     magazine_reload.src = "./magazine_reload.png";
     // "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/magazine_reload.png";
-    bullet.src ="https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png";
+    bullet.src =
+        "https://raw.githubusercontent.com/Mohammed-Asim-developer/Shooting_game_src/refs/heads/main/bullet_icon.png";
     //"./bullet_icon.png";
     bulletHolder();
     magazine_reload.width = "24";
@@ -265,7 +266,7 @@ function createBulletHole() {
 // حفظ أفضل نتيجة
 function saveBestScore(score) {
     const best = localStorage.getItem("bestScore") || 0;
-    if (score > best) {
+    if (score >= best) {
         localStorage.setItem("bestScore", score);
         console.log("New best score saved!");
     }
@@ -273,7 +274,7 @@ function saveBestScore(score) {
 
 // جلب أفضل نتيجة عند تحميل الصفحة
 const bestScore = localStorage.getItem("bestScore") || 0;
-bestscore.innerText = `Best score: ${bestScore}`;
+bestscore.innerText = `Best score: ${bestScore}` || 0;
 
 function shoot() {
     const distance = aim.position.distanceTo(target.position);
