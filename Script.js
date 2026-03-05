@@ -290,8 +290,7 @@ function shoot() {
             parseInt(localStorage.getItem("bestScore")) === 0
         ) {
             saveBestScore(parseInt(spanHits.innerText.split(":")[1]));
-            updateCounter(bestscore);
-        } else bestscore.innerText = localStorage.getItem("bestScore") || 0;
+            updateCounter(bestscore);}
     } else {
         updateCounter(spanFails);
         createBulletHole();
@@ -400,8 +399,8 @@ function limitAim() {
             ========================= */
 
 window.addEventListener("load", () => {
-  if(!localStorage.getItem("bestScore"))
-  localStorage.setItem("bestScore",0)
+    if (!localStorage.getItem("bestScore"))
+        localStorage.setItem("bestScore", 0);
     checkOrientation();
 });
 
